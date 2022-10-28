@@ -67,7 +67,7 @@ class Solution
             count++; 
         }
         //Step2 : recusrion dekh lenga 
-        if(head!=NULL){
+        if(next!=NULL){
             head->next=reverse(next,k); 
         }
         //Step3 : return head of reversed list 

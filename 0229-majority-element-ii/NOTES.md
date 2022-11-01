@@ -1,0 +1,24 @@
+count2=1;
+}
+else{
+count1--;
+count2--;
+}
+}
+vector<int> ans;
+count1=count2=0;
+for(int i=0;i<sz;i++){
+if(nums[i]==num1){
+count1++;
+}
+if(nums[i]==num2){
+count2++;
+}
+}
+if(count1>sz/3){
+ans.push_back(num1);
+}
+if(count2>sz/3){
+ans.push_back(num2);
+}
+return ans;

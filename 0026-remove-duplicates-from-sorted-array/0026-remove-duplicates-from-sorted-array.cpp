@@ -1,16 +1,19 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        //using hash set
-        set<int> st; 
-        for(int i=0;i<nums.size();i++){
-            st.insert(nums[i]); 
+        //using 2 pointers 
+        if(nums.size()==0){
+            return 0; 
         }
-        int res=st.size(); 
-        int j=0; 
-        for(auto x:st){
-            nums[j++]=x; 
+        
+        //i will point to 0th indx and j points to next index
+        int i=0; 
+        for(int j=1;j<nums.size();j++){
+            if(nums[i]!=nums[j]){      //if both are unique then arr[++i]=arr[j]
+                i++;                    //j moves and compare in every iteration 
+                nums[i]=nums[j];  
+            }
         }
-        return res; 
+        return i+1; 
     }
 };

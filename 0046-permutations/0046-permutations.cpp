@@ -1,31 +1,20 @@
 class Solution {
 public:
-    void findPermutaion(vector<int>& ds,vector<int>& nums,vector<vector<int>>& ans,int freq[]){
-        if(ds.size()==nums.size()){
-            //agara size barabar length ke toh mtlab ans mil gaya return kardo
-            ans.push_back(ds);
+    void recurPermute(int index,vector<int>& nums,vector<vector<int>>& ans){ 
+        //srivers sheet prev problems
+        if(index==nums.size()){
+            ans.push_back(nums);    //agar size == len of index push and return
             return; 
         }
-        for(int i=0;i<nums.size();i++){
-            if(!freq[i]){
-                //agar marked nhi hai toh add kardo
-                ds.push_back(nums[i]); 
-                freq[i]=1; 
-                findPermutaion(ds,nums,ans,freq); 
-                freq[i]=0; 
-                ds.pop_back(); 
-            }
+        for(int i=index;i<nums.size();i++){
+            swap(nums[index],nums[i]);   //haan sabse pehle (0,0), (1,1) aesa hoga 
+            recurPermute(index+1,nums,ans);  
+            swap(nums[index],nums[i]);    //wapas swap karenge jis se backtrack kar pae
         }
     }
-    
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans; 
-        vector<int> ds; 
-        int freq[nums.size()]; 
-        for(int i=0;i<nums.size();i++){
-            freq[i]=0; 
-        }
-        findPermutaion(ds,nums,ans,freq); 
+        recurPermute(0,nums,ans); 
         return ans; 
     }
 };

@@ -4,42 +4,31 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-private:
-    bool check(int start,int V,vector<int>adj[],int color[]){
-        queue<int> q; 
-        q.push(start); 
-        color[start]=0; 
-        while(!q.empty()){
-            int node=q.front(); 
-            q.pop(); 
-            for(auto it:adj[node]){
-                //if adj node is not colored 
-                //color it with opposite color of curr node 
-                if(color[it]==-1){
-                    color[it]=!color[node]; 
-                    q.push(it); 
-                }
-                //if adj node is having same color as curr
-                // then return false
-                else if(color[it]==color[node]){
-                    return false; 
-                }
+//using dfs
+private: 
+    //for individual componenet
+    bool dfs(int node,int col,int color[],vector<int> adj[]){
+        color[node]=col; 
+        
+        for(auto it:adj[node]){
+            if(color[it]==-1){
+                if(dfs(it,!col,color,adj)==false)  return false; 
+            }
+            else if(color[it]==col){
+                return false;
             }
         }
         return true; 
     }
 public:
-	bool isBipartite(int V, vector<int>adj[]){
-	    int color[V];
-	    for(int i=0;i<V;i++){
-	        color[i]=-1; 
-	    }
-	    //O(N)+O(N) 
+	bool isBipartite(int V, vector<int> adj[]){
+	    int color[V]; 
+	    for(int i=0;i<V;i++)   color[i]=-1; 
+	    
+	    //for every component
 	    for(int i=0;i<V;i++){
 	        if(color[i]==-1){
-	            if(check(i,V,adj,color)==false){
-	                return false; 
-	            }
+	            if(dfs(i,0,color,adj)==false)  return false; 
 	        }
 	    }
 	    return true; 

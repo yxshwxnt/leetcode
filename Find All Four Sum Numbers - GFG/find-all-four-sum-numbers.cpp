@@ -11,28 +11,28 @@ class Solution{
     // arr[] : int input array of integers
     // k : the quadruple sum required
     vector<vector<int> > fourSum(vector<int> &nums, int k) {
-        set<vector<int>> st;  
-        int n=nums.size(); 
+        int n=nums.size();
+        set<vector<int>> st; 
         sort(nums.begin(),nums.end()); 
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
                 int s=j+1; 
                 int e=n-1; 
                 while(s<e){
-                    long long currSum=(long long)nums[i]+nums[j]+nums[s]+nums[e]; 
+                    int currSum=nums[i]+nums[j]+nums[s]+nums[e]; 
                     if(currSum==k){
                         st.insert({nums[i],nums[j],nums[s],nums[e]}); 
-                        e--; 
+                        e--;
                     } 
-                    else if(currSum>k){
+                    if(currSum>k){
                         e--;
                     } 
                     else{
-                        s++;
+                        s++; 
                     }
                 }
             }
-        } 
+        }  
         vector<vector<int>> ans(st.begin(),st.end()); 
         return ans; 
     }
